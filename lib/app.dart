@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
+import 'router/router.dart';
+
 class App extends StatelessWidget {
-  const App({super.key});
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router();
+    return MaterialApp.router(
+      theme: ThemeData.dark(),
+      routerConfig: _appRouter.config(),
+    );
   }
 }
