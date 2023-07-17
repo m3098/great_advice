@@ -10,11 +10,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final List<AdviceModel> adviceList = [];
   HomeBloc() : super(HomeInitial()) {
     on<AddAdviceInList>((event, emit) async {
-      emit(HomeLoading());
+      if (state is! HomeLoaded) {
+        emit(HomeLoading());
+      }
 
       try {
-        adviceList.add(await GreatAdviceRepository().getRandomAdvice());
-        emit(HomeLoaded(adviceList: adviceList));
+        if (adviceList.isNotEmpty) {
+          emit(HomeLoaded(adviceList: adviceList, isAdviceLoading: true));
+        }
+
+        emit(HomeLoaded(
+            adviceList: adviceList
+              ..add(await GreatAdviceRepository().getRandomAdvice()),
+            isAdviceLoading: false));
       } catch (e) {
         emit(HomeLoadedFailed());
       }
