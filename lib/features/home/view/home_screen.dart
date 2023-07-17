@@ -28,7 +28,15 @@ class HomeScreen extends StatelessWidget {
                       child: CircularProgressIndicator(color: Colors.white),
                     );
                   } else {
-                    return Center(child: Text(state.adviceList[index].text));
+                    return Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          state.adviceList[index].text.toUpperCase(),
+                          style: const TextStyle(
+                              fontFamily: 'Oswald',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 32),
+                        ));
                   }
                 });
           } else {
